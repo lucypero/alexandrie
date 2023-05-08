@@ -90,15 +90,20 @@ fn frontend_routes(state: State, frontend_config: FrontendConfig) -> io::Result<
 
     log::info!("mounting '/'");
     app.at("/").get(frontend::index::get);
+
     log::info!("mounting '/me'");
     app.at("/me").get(frontend::me::get);
+
     log::info!("mounting '/search'");
     app.at("/search").get(frontend::search::get);
+
     log::info!("mounting '/most-downloaded'");
     app.at("/most-downloaded")
         .get(frontend::most_downloaded::get);
+
     log::info!("mounting '/last-updated'");
     app.at("/last-updated").get(frontend::last_updated::get);
+
     log::info!("mounting '/crates/:crate'");
     app.at("/crates/:crate").get(frontend::krate::get);
 
@@ -106,46 +111,60 @@ fn frontend_routes(state: State, frontend_config: FrontendConfig) -> io::Result<
     app.at("/account/login")
         .get(frontend::account::login::get)
         .post(frontend::account::login::post);
+
     log::info!("mounting '/account/logout'");
     app.at("/account/logout")
         .get(frontend::account::logout::get);
+
     log::info!("mounting '/account/register'");
     app.at("/account/register")
         .get(frontend::account::register::get)
         .post(frontend::account::register::post);
+
     log::info!("mounting '/account/github'");
     app.at("/account/github")
         .get(frontend::account::github::get);
+
     log::info!("mounting '/account/github/attach'");
     app.at("/account/github/attach")
         .get(frontend::account::github::attach::get);
+
     log::info!("mounting '/account/github/detach'");
     app.at("/account/github/detach")
         .get(frontend::account::github::detach::get);
+
     log::info!("mounting '/account/github/callback'");
     app.at("/account/github/callback")
         .get(frontend::account::github::callback::get);
+
     log::info!("mounting '/account/gitlab'");
     app.at("/account/gitlab")
         .get(frontend::account::gitlab::get);
+
     log::info!("mounting '/account/gitlab/attach'");
     app.at("/account/gitlab/attach")
         .get(frontend::account::gitlab::attach::get);
+
     log::info!("mounting '/account/gitlab/detach'");
     app.at("/account/gitlab/detach")
         .get(frontend::account::gitlab::detach::get);
+
     log::info!("mounting '/account/gitlab/callback'");
     app.at("/account/gitlab/callback")
         .get(frontend::account::gitlab::callback::get);
+
     log::info!("mounting '/account/manage'");
     app.at("/account/manage")
         .get(frontend::account::manage::get);
+
     log::info!("mounting '/account/manage/password'");
     app.at("/account/manage/password")
         .post(frontend::account::manage::passwd::post);
+
     log::info!("mounting '/account/manage/tokens'");
     app.at("/account/manage/tokens")
         .post(frontend::account::manage::tokens::post);
+
     log::info!("mounting '/account/manage/tokens/:token-id/revoke'");
     app.at("/account/manage/tokens/:token-id/revoke")
         .get(frontend::account::manage::tokens::revoke::get);
@@ -177,40 +196,61 @@ fn api_routes(state: State) -> Server<State> {
     log::info!("mounting '/api/v1/account/register'");
     app.at("/account/register")
         .post(api::account::register::post);
+
     log::info!("mounting '/api/v1/account/login'");
     app.at("/account/login").post(api::account::login::post);
+
     log::info!("mounting '/api/v1/account/tokens'");
     app.at("/account/tokens")
         .post(api::account::token::info::post)
         .put(api::account::token::generate::put)
         .delete(api::account::token::revoke::delete);
+
     log::info!("mounting '/api/v1/account/tokens/:name'");
     app.at("/account/tokens/:name")
         .get(api::account::token::info::get);
+
     log::info!("mounting '/api/v1/categories'");
     app.at("/categories").get(api::categories::get);
+
     log::info!("mounting '/api/v1/crates'");
     app.at("/crates").get(api::crates::search::get);
+
     log::info!("mounting '/api/v1/crates/new'");
     app.at("/crates/new").put(api::crates::publish::put);
+
     log::info!("mounting '/api/v1/crates/suggest'");
     app.at("/crates/suggest").get(api::crates::suggest::get);
+
     log::info!("mounting '/api/v1/crates/:name'");
     app.at("/crates/:name").get(api::crates::info::get);
+
     log::info!("mounting '/api/v1/crates/:name/owners'");
     app.at("/crates/:name/owners")
         .get(api::crates::owners::get)
         .put(api::crates::owners::put)
         .delete(api::crates::owners::delete);
+
     log::info!("mounting '/api/v1/crates/:name/:version/yank'");
     app.at("/crates/:name/:version/yank")
         .delete(api::crates::yank::delete);
+
     log::info!("mounting '/api/v1/crates/:name/:version/unyank'");
     app.at("/crates/:name/:version/unyank")
         .put(api::crates::unyank::put);
+
     log::info!("mounting '/api/v1/crates/:name/:version/download'");
     app.at("/crates/:name/:version/download")
         .get(api::crates::download::get);
+
+    log::info!("mounting '/api/v1/sparse/:fst/:snd/:crate'");
+    app.at("/sparse/:fst/:snd/:crate").get(api::sparse::get);
+
+    log::info!("mounting '/api/v1/sparse/:fst/:crate'");
+    app.at("/sparse/:fst/:crate").get(api::sparse::get);
+
+    log::info!("mounting '/api/v1/sparse/config.json'");
+    app.at("/sparse/config.json").get(api::sparse::get_config);
 
     app
 }
