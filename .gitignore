@@ -21,6 +21,9 @@
 # file for saving processes from `persist`
 /persist-dump.json
 
+# miscellaneous ignored folder
+/ignored
+
 # alexandrie local testing folders
 /app-data
 /crate-index
